@@ -75,11 +75,8 @@ class RedminePlugin(IssuePlugin):
             'priority_id': default_priority,
             'subject': form_data['title'].encode('utf-8'),
             'description': form_data['description'].encode('utf-8'),
-            {
-                "custom_field_values": {
-                    "4": form_data['branch'].encode('utf-8')
-                }
-            }
+            'assigned_to_id': 311,
+            'custom_field_values': { '4': form_data['branch'].encode('utf-8') }
         }
 
         extra_fields_str = self.get_option('extra_fields', group.project)
