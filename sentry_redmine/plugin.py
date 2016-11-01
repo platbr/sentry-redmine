@@ -36,6 +36,7 @@ class RedminePlugin(IssuePlugin):
     def get_initial_form_data(self, request, group, event, **kwargs):
         return {
             'description': self._get_group_description(request, group, event),
+            'branch': "hotfix_sentry_%s" % (event.id),
             'title': self._get_group_title(request, group, event),
         }
 
@@ -74,6 +75,11 @@ class RedminePlugin(IssuePlugin):
             'priority_id': default_priority,
             'subject': form_data['title'].encode('utf-8'),
             'description': form_data['description'].encode('utf-8'),
+            {
+                "custom_field_values": {
+                    "4": form_data['branch'].encode('utf-8')
+                }
+            }
         }
 
         extra_fields_str = self.get_option('extra_fields', group.project)
