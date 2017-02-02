@@ -16,7 +16,7 @@ class RedmineClient(object):
         }
         url = '{}{}'.format(self.host, path)
         session = http.build_session()
-        req = getattr(session, method.lower())(url, json=data, headers=headers)
+        req = getattr(session, method.lower())(url, json=data, headers=headers, verify=False)
         return json.loads(req.text)
 
     def get_projects(self):
